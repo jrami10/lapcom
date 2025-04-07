@@ -10,7 +10,7 @@
 
         <!-- Catégories -->
         <li class="space-y-2">
-            <a href="#" id="categoryToggle" class="block p-2 rounded hover:bg-gray-600 hover:text-white transition">
+            <a href="{{route('category.index')}}" id="categoryToggle" class="block p-2 rounded hover:bg-gray-600 hover:text-white transition">
                 <i class="fas fa-list-alt mr-2"></i> Catégories
             </a>
             <!-- Sous-menu pour Ajouter une catégorie -->
@@ -40,12 +40,13 @@
             </form>
         </li>
     </ul>
+    <script>
+        // Toggle the visibility of the category sub-menu when clicking on "Catégories"
+        document.getElementById('categoryToggle').addEventListener('click', function() {
+            var subMenu = document.getElementById('categorySubMenu');
+            subMenu.classList.toggle('hidden');
+        });
+    </script>
+    
 </div>
 
-<script>
-    // Toggle the visibility of the category sub-menu when clicking on "Catégories"
-    document.getElementById('categoryToggle').addEventListener('click', function() {
-        var subMenu = document.getElementById('categorySubMenu');
-        subMenu.classList.toggle('hidden');
-    });
-</script>

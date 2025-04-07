@@ -5,6 +5,15 @@ use App\Http\Controllers\MarquesController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
+Route::middleware(['auth'])->prefix('category')->group(function(){
+    Route::get('/', [CategoryController::class, 'index'])->name('category.index'); 
+    Route::get('/create', [CategoryController::class, 'create'])->name('category.create'); 
+    Route::post('/create', [CategoryController::class, 'store'])->name('category.store');
+    Route::get('/edit',[CategoryController::class, 'edit'])->name('category.edit');
+    Route::put('/',[CategoryController::class, 'update'])->name('category.update');
+
+
+});
 
 
 Route::middleware(['auth'])->prefix('marques')->group(function() {
@@ -17,15 +26,6 @@ Route::middleware(['auth'])->prefix('marques')->group(function() {
 });
 
 
-Route::middleware(['auth'])->prefix('category')->group(function(){
-    Route::get('/', [CategoryController::class, 'index'])->name('category.index'); 
-    Route::get('/create', [CategoryController::class, 'create'])->name('category.create'); 
-    Route::post('/create', [CategoryController::class, 'store'])->name('category.store');
-    Route::get('/edit',[CategoryController::class, 'edit'])->name('category.edit');
-    Route::put('/',[CategoryController::class, 'update'])->name('category.update');
-    Route::delete('/',[CategoryController::class, 'destory'])->name('category.destory');
-
-});
 
 // Page d'accueil
 Route::get('/', function () {
