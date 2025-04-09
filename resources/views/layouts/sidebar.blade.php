@@ -1,52 +1,78 @@
-<div class="fixed left-0 top-0 w-64 h-screen bg-gray-500 text-black-300 p-4 hidden sm:block">
+<div class="fixed left-0 top-0 w-64 h-screen bg-gray-200 text-black-300 p-4 hidden sm:block">
     <h2 class="text-xl font-semibold mb-6 text-black-300">Administration</h2>
-    <ul class="space-y-6">
-        <!-- Tableau de bord -->
-        <li>
-            <a href="{{ route('dashboard') }}" class="block p-2 rounded hover:bg-gray-600 hover:text-white transition">
-                <i class="fas fa-tachometer-alt mr-2"></i> Tableau de bord
-            </a>
-        </li>
+    <div class="mt-4 space-y-1 px-2">
+        <a href="{{ route('dashboard') }}" class="flex items-center px-3 py-2 text-sm font-medium rounded-md 
+            {{ request()->routeIs('dashboard') ? 'bg-gray-100 text-blue-700' : 'text-gray-700 hover:bg-gray-50 hover:text-blue-700' }}">
+            <i class="fa-solid fa-house mr-4 h-5 w-5 mt-2"></i> 
+            {{ __('Tableaux de bord') }}
+        </a>
+    </div>
 
-        <!-- Catégories -->
-        <li class="space-y-2">
-            <a href="{{route('category.index')}}" id="categoryToggle" class="block p-2 rounded hover:bg-gray-600 hover:text-white transition">
-                <i class="fas fa-list-alt mr-2"></i> Catégories
-            </a>
-            <!-- Sous-menu pour Ajouter une catégorie -->
-            <ul id="categorySubMenu" class="space-y-2 pl-4 hidden">
-                <li>
-                    <a href="{{ route('category.create') }}" class="block p-2 rounded hover:bg-gray-500 hover:text-white transition">
-                        <i class="fas fa-plus mr-2"></i> Ajouter une catégorie
-                    </a>
-                </li>
-            </ul>
-        </li>
-
-        <!-- Marques -->
-        <li>
-            <a href="{{ route('marques.index') }}" class="block p-2 rounded hover:bg-gray-600 hover:text-white transition">
-                <i class="fas fa-cogs mr-2"></i> Marques
-            </a>
-        </li>
-
-        <!-- Déconnexion -->
-        <li>
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button type="submit" class="block p-2 w-full text-left rounded hover:bg-gray-600 hover:text-white transition">
-                    <i class="fas fa-sign-out-alt mr-2"></i> Déconnexion
-                </button>
-            </form>
-        </li>
-    </ul>
-    <script>
-        // Toggle the visibility of the category sub-menu when clicking on "Catégories"
-        document.getElementById('categoryToggle').addEventListener('click', function() {
-            var subMenu = document.getElementById('categorySubMenu');
-            subMenu.classList.toggle('hidden');
-        });
-    </script>
+    <!-- Catégories -->
+    <div x-data="{ open: false }" class="mt-4 space-y-1 px-2">
+        <button @click="open = !open" class="w-full flex items-center px-3 py-2 text-sm font-medium rounded-md 
+            {{ request()->routeIs('category.index') || request()->routeIs('category.create') ? 'bg-gray-100 text-blue-700' : 'text-gray-700 hover:bg-gray-50 hover:text-blue-700' }}">
+            <i class="fa-solid fa-list mr-4 h-5 w-5"></i> 
+            {{ __('Catégories') }}
+            <i class="fa-solid fa-chevron-down ml-auto" :class="open ? 'rotate-180' : 'rotate-0'"></i>
+        </button>
     
-</div>
+        <div x-show="open" x-transition class="ml-8 space-y-1">
+            <a href="{{ route('category.index') }}" class="flex items-center px-3 py-2 text-sm font-medium rounded-md 
+                {{ request()->routeIs('category.index') ? 'bg-gray-100 text-blue-700' : 'text-gray-700 hover:bg-gray-50 hover:text-blue-700' }}">
+                <i class="fa-solid fa-list mr-2"></i> 
+                {{ __('Liste des Catégories') }}
+            </a>
+            <a href="{{ route('category.create') }}" class="flex items-center px-3 py-2 text-sm font-medium rounded-md 
+                {{ request()->routeIs('category.create') ? 'bg-gray-100 text-blue-700' : 'text-gray-700 hover:bg-gray-50 hover:text-blue-700' }}">
+                <i class="fa-solid fa-plus mr-2"></i> 
+                {{ __('Créer une Catégorie') }}
+            </a>
+        </div>
+    </div>
 
+    <!-- Marques -->
+    <div x-data="{ open: false }" class="mt-4 space-y-1 px-2">
+        <button @click="open = !open" class="w-full flex items-center px-3 py-2 text-sm font-medium rounded-md 
+            {{ request()->routeIs('marques.index') || request()->routeIs('marques.create') ? 'bg-gray-100 text-blue-700' : 'text-gray-700 hover:bg-gray-50 hover:text-blue-700' }}">
+            <i class="fa-solid fa-copyright mr-4 h-5 w-5"></i> 
+            {{ __('Marques') }}
+            <i class="fa-solid fa-chevron-down ml-auto" :class="open ? 'rotate-180' : 'rotate-0'"></i>
+        </button>
+    
+        <div x-show="open" x-transition class="ml-8 space-y-1">
+            <a href="{{ route('marques.index') }}" class="flex items-center px-3 py-2 text-sm font-medium rounded-md 
+                {{ request()->routeIs('marques.index') ? 'bg-gray-100 text-blue-700' : 'text-gray-700 hover:bg-gray-50 hover:text-blue-700' }}">
+                <i class="fa-solid fa-copyright mr-2"></i> 
+                {{ __('Liste des Marques') }}
+            </a>
+            <a href="{{ route('marques.create') }}" class="flex items-center px-3 py-2 text-sm font-medium rounded-md 
+                {{ request()->routeIs('marques.create') ? 'bg-gray-100 text-blue-700' : 'text-gray-700 hover:bg-gray-50 hover:text-blue-700' }}">
+                <i class="fa-solid fa-plus mr-2"></i> 
+                {{ __('Créer une Marque') }}
+            </a>
+        </div>
+    </div>
+    <!-- Produits -->
+<div x-data="{ open: false }" class="mt-4 space-y-1 px-2">
+    <button @click="open = !open" class="w-full flex items-center px-3 py-2 text-sm font-medium rounded-md 
+        {{ request()->routeIs('produits.index') || request()->routeIs('produits.create') ? 'bg-gray-100 text-blue-700' : 'text-gray-700 hover:bg-gray-50 hover:text-blue-700' }}">
+        <i class="fa-solid fa-box mr-4 h-5 w-5"></i> 
+        {{ __('Produits') }}
+        <i class="fa-solid fa-chevron-down ml-auto" :class="open ? 'rotate-180' : 'rotate-0'"></i>
+    </button>
+
+    <div x-show="open" x-transition class="ml-8 space-y-1">
+        <a href="{{ route('produits.index') }}" class="flex items-center px-3 py-2 text-sm font-medium rounded-md 
+            {{ request()->routeIs('produits.index') ? 'bg-gray-100 text-blue-700' : 'text-gray-700 hover:bg-gray-50 hover:text-blue-700' }}">
+            <i class="fa-brands fa-product-hunt mr-2"></i> 
+            {{ __('Liste des Produits') }}
+        </a>
+        <a href="{{ route('produits.create') }}" class="flex items-center px-3 py-2 text-sm font-medium rounded-md 
+            {{ request()->routeIs('produits.create') ? 'bg-gray-100 text-blue-700' : 'text-gray-700 hover:bg-gray-50 hover:text-blue-700' }}">
+            <i class="fa-solid fa-plus mr-2"></i> 
+            {{ __('Créer un Produit') }}
+        </a>
+    </div>
+</div>
+</div>
