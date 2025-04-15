@@ -28,8 +28,24 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
-    }
+        if (Auth::attempt($request->only('email', 'password'), $request->boolean('remember'))) {
+            $request->session()->regenerate();
+    
+            $user = Auth::user();
+    
+            if ($user->role === 'admin') {
+                return redirect()->route('dashboard');
+            } elseif ($user->role === 'seller') {
+                return redirect()->route('dashboard');
+            } else {
+                return redirect()->route('client.index'); 
+            }
+        }
+
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ]);
+     }
 
     /**
      * Destroy an authenticated session.

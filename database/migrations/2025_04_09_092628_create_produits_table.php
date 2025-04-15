@@ -17,9 +17,9 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->text('description')->nullable();
             $table->decimal('price', 8, 2);
-            $table->unsignedBigInteger('category_id');
-            $table->unsignedBigInteger('brand_id'); 
-            $table->string('image')->nullable();
+$table->unsignedBigInteger('category_id');
+$table->unsignedBigInteger('brand_id'); // marque
+$table->string('image')->nullable();
             $table->timestamps();
         });
     }

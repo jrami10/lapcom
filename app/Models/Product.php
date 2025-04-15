@@ -9,11 +9,14 @@ class Product extends Model
     protected $fillable = [
         'name', 'slug', 'description', 'resume', 'stock', 'image', 
         'price','promo', 'state', 'statut_taxe', 
-        'idCategory', 'idUser'
+        'idCategory', 'idbrand', 'idUser'
     ];
 
     public function category() {
         return $this->belongsTo(Category::class, 'idCategory');
+    }
+    public function brand() {
+        return $this->belongsTo(Brand::class, 'idBrand');
     }
 
     public function seller() {

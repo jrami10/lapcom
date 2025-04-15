@@ -6,7 +6,6 @@
     <form action="{{ route('category.update', $category->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
-
         <!-- Name -->
         <div class="mb-4">
             <label class="block text-gray-700">Nom :</label>

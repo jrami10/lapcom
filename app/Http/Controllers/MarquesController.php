@@ -2,84 +2,96 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
 use Illuminate\Http\Request;
-use App\Models\Marque; 
+use App\Models\Marque;
+use App\Models\Product;
 
 class MarquesController extends Controller
 {
     // Afficher la liste des marques
     public function index()
     {
-        $marques = Marque::all();  // Récupère toutes les marques dans la base de données
-        return view('marques.index', compact('marques'));  // Renvoie la vue avec les marques
+        $brands = Brand::all();  // Récupère toutes les marques dans la base de données
+        return view('brands.index', compact('brands'));  // Renvoie la vue avec les marques
     }
 
     // Afficher le formulaire pour ajouter une nouvelle marque
     public function create()
     {
-        return view('marques.create');
+        $products = Product::all(); // Récupère tous les produits pour le formulaire
+        return view('brands.create', compact('products')); // Renvoie la vue avec les produits
+        
     }
 
     // Enregistrer une nouvelle marque dans la base de données
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'slug' => 'required|string|unique:marques',
-            'logo' => 'nullable|image',
-            'description' => 'nullable|string',
+            'title' => 'required|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'statut' => 'required|in:actif,inactif',
+            'idProduct' => 'required|exists:products,id',
         ]);
-
-        $marque = new Marque();
-        $marque->name = $request->name;
-        $marque->slug = $request->slug;
-        $marque->logo = $request->file('logo') ? $request->file('logo')->store('logos') : null;  // Gère le téléchargement de l'image logo
-        $marque->description = $request->description;
-        $marque->save();
-
-        return redirect()->route('marques.index');
+    
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('brands', 'public');
+        }
+    
+        Brand::create([
+            'title' => $request->title,
+            'image' => $imagePath,
+            'statut' => $request->statut,
+            'idProduct' => $request->idProduct,
+        ]);
+    
+        return redirect()->route('brands.index')->with('success', 'Marque ajoutée avec succès.');
     }
+    
     public function edit($id)
 {
-    $marque = Marque::findOrFail($id);
+    $brand = Brand::findOrFail($id);
+    $products = Product::all(); // Récupère tous les produits pour le formulaire
     
-    return view('marques.edit', compact('marque'));
+    return view('brands.edit', compact('brand', 'products')); // Renvoie la vue avec la marque à modifier et les produits
 }
 public function update(Request $request, $id)
 {
-    // Récupère la marque à modifier
-    $marque = Marque::findOrFail($id);
-    
-    // Validation des données du formulaire
+    $brand = Brand::findOrFail($id);
+
     $request->validate([
-        'name' => 'required|string|max:255',
-        'slug' => 'required|string|unique:marques,slug,' . $marque->id, // Unique sauf pour la marque actuelle
-        'logo' => 'nullable|image',
-        'description' => 'nullable|string',
+        'title' => 'required|string|max:255',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'statut' => 'required|in:actif,inactif',
+        'idProduct' => 'required|exists:products,id',
     ]);
 
-    // Mise à jour des informations de la marque
-    $marque->name = $request->name;
-    $marque->slug = $request->slug;
-    $marque->logo = $request->file('logo') ? $request->file('logo')->store('logos') : $marque->logo;
-    $marque->description = $request->description;
-    
-    // Sauvegarde des modifications dans la base de données
-    $marque->save();
+    // Gestion de l'image
+    if ($request->hasFile('image')) {
+        $imagePath = $request->file('image')->store('brands', 'public');
+        $brand->image = $imagePath;
+    }
 
-    // Redirection vers la liste des marques
-    return redirect()->route('marques.index');
+    // Mise à jour des autres champs
+    $brand->title = $request->title;
+    $brand->statut = $request->statut;
+    $brand->idProduct = $request->idProduct;
+
+    $brand->save();
+
+    return redirect()->route('brands.index')->with('success', 'Marque mise à jour avec succès.');
 }
 public function destroy($id)
 {
     // Récupère la marque à supprimer
-    $marque = Marque::findOrFail($id);
+    $brand = Brand::findOrFail($id);
 
     // Supprimer la marque de la base de données
-    $marque->delete();
+    $brand->delete();
 
     // Rediriger l'utilisateur vers la liste des marques après la suppression
-    return redirect()->route('marques.index')->with('success', 'Marque supprimée avec succès.');
+    return redirect()->route('brands.index')->with('success', 'Marque supprimée avec succès.');
 }
 
 

@@ -26,7 +26,7 @@ return new class extends Migration
             $table->foreignId('idCategory')->constrained('categories')->onDelete('cascade');
             $table->foreignId('idUser')->constrained('users')->onDelete('cascade');
             $table->timestamps();
-            
+    
         });
     }
 
@@ -36,5 +36,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('products');
+
+        
     }
 };
