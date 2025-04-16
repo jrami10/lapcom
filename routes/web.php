@@ -7,6 +7,10 @@ use App\Http\Controllers\ProfileController;
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProduitController;
+use App\Http\Controllers\CartController;
+
+
+
 
 Route::middleware(['auth'])->prefix('products')->group(function () {
     Route::get('/', [ProduitController::class, 'index'])->name('products.index');
@@ -16,16 +20,6 @@ Route::middleware(['auth'])->prefix('products')->group(function () {
     Route::put('/{produit}', [ProduitController::class, 'update'])->name('products.update');
     Route::delete('/{produit}', [ProduitController::class, 'destroy'])->name('products.destroy');
 });
-Route::middleware(['auth'])->prefix('products')->group(function () {
-    Route::get('/', [ProduitController::class, 'index'])->name('products.index');
-    Route::get('/create', [ProduitController::class, 'create'])->name('products.create');
-    Route::post('/', [ProduitController::class, 'store'])->name('products.store');
-    Route::get('/{produit}/edit', [ProduitController::class, 'edit'])->name('products.edit');
-    Route::put('/{produit}', [ProduitController::class, 'update'])->name('products.update');
-    Route::delete('/{produit}', [ProduitController::class, 'destroy'])->name('products.destroy');
-});
-
-
 
 
 Route::middleware(['auth'])->prefix('category')->group(function(){
@@ -36,7 +30,6 @@ Route::middleware(['auth'])->prefix('category')->group(function(){
     Route::put('/{id}', [CategoryController::class, 'update'])->name('category.update'); 
 
 });
-
 
 
 Route::middleware(['auth'])->prefix('marques')->group(function() {
@@ -50,6 +43,10 @@ Route::middleware(['auth'])->prefix('marques')->group(function() {
 
 Route::middleware(['auth'])->prefix('client')->group(function() {
     Route::get('/', [ClientController::class, 'index'])->name('client.index');
+    Route::get('/cart', [CartController::class, 'show'])->name('cart.show');
+    Route::post('/cart/add/{id}', [CartController::class, 'store'])->name('cart.store');
+    Route::post('/cart/remove/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
+    
    
 });
 

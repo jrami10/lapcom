@@ -13,6 +13,19 @@
             <h1 class="text-2xl font-bold text-blue-600">LapCom</h1>
             <nav class="flex items-center gap-4">
                 <input type="text" placeholder="Rechercher..." class="px-4 py-2 border rounded-md">
+                <!-- PANIER -->
+    <a href="{{ route('cart.show') }}" class="relative text-blue-600 font-semibold">
+        Panier
+        @php
+            $totalItems = array_sum(array_column(session('cart', []), 'quantity'));
+        @endphp
+        @if($totalItems > 0)
+            <span class="absolute -top-2 -right-2 bg-red-600 text-white text-xs px-2 py-1 rounded-full">
+                {{ $totalItems }}
+            </span>
+        @endif
+    </a>
+
             
                 @guest
                     <a href="{{ route('login') }}" class="text-blue-600 hover:underline">Login</a>
