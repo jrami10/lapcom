@@ -1,4 +1,4 @@
-@extends('layouts.app') <!-- Si tu utilises un layout, sinon retire cette ligne -->
+@extends('layouts.app') 
 
 @section('content')
 <div class="container mx-auto py-8">

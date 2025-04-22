@@ -27,4 +27,8 @@ class Product extends Model
         return $this->belongsToMany(Order::class, 'order_details', 'idProduct', 'idOrder')
                     ->withPivot('quantity');
     }
+    public function user() // Le créateur/vendeur du produit
+{
+    return $this->belongsTo(User::class, 'idUser');
+}
 }

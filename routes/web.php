@@ -8,9 +8,14 @@ use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProduitController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
 
 
 
+
+Route::middleware(['auth'])->prefix('client')->group(function () {
+    Route::get('/', [ClientController::class, 'index'])->name('client.index');
+});
 
 Route::middleware(['auth'])->prefix('products')->group(function () {
     Route::get('/', [ProduitController::class, 'index'])->name('products.index');
@@ -19,6 +24,25 @@ Route::middleware(['auth'])->prefix('products')->group(function () {
     Route::get('/{produit}/edit', [ProduitController::class, 'edit'])->name('products.edit');
     Route::put('/{produit}', [ProduitController::class, 'update'])->name('products.update');
     Route::delete('/{produit}', [ProduitController::class, 'destroy'])->name('products.destroy');
+    Route::get('/produit/{id}', [ProduitController::class, 'show'])->name('products.show');
+
+});
+Route::middleware('auth')->prefix('cart')->controller(CartController::class)->group(function () {
+    Route::get('/', 'index')->name('cart.index'); // Afficher le panier
+    Route::post('/add/{product}', 'add')->name('cart.add'); // Ajouter un produit au panier
+    Route::patch('/update/{cart}', 'update')->name('cart.update'); // Modifier la quantité
+    Route::delete('/remove/{cart}', 'remove')->name('cart.remove'); // Supprimer un article
+});
+
+Route::middleware('auth')->prefix('orders')->group(function() {
+    Route::get('/', [OrderController::class, 'index'])->name('orders.index'); // Afficher les commandes
+    Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
+    Route::post('/', [OrderController::class, 'store'])->name('orders.store'); // Créer une commande
+    Route::put('/{id}', [OrderController::class, 'update'])->name('orders.update'); // Mettre à jour une commande
+    Route::delete('/{id}', [OrderController::class, 'destroy'])->name('orders.destroy'); // Supprimer une commande
+    Route::get('/create', [OrderController::class, 'create'])->name('orders.create');
+    Route::get('/checkout', [OrderController::class, 'checkout'])->name('orders.checkout');
+
 });
 
 
@@ -41,14 +65,6 @@ Route::middleware(['auth'])->prefix('marques')->group(function() {
     Route::delete('/{id}', [MarquesController::class, 'destroy'])->name('brands.destroy');
 });
 
-Route::middleware(['auth'])->prefix('client')->group(function() {
-    Route::get('/', [ClientController::class, 'index'])->name('client.index');
-    Route::get('/cart', [CartController::class, 'show'])->name('cart.show');
-    Route::post('/cart/add/{id}', [CartController::class, 'store'])->name('cart.store');
-    Route::post('/cart/remove/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
-    
-   
-});
 
 // Page d'accueil
 Route::get('/', function () {

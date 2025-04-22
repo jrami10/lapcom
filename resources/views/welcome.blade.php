@@ -6,7 +6,7 @@
     <title>LapCom - Vente de Matériel Informatique</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 text-gray-900">
+<body class="bg-gray-100 text-gray-900 w-full">
     <!-- Header -->
     <header class="bg-white shadow-md p-4">
         <div class="container mx-auto flex justify-between items-center">
@@ -25,7 +25,7 @@
         <div class="text-center">
             <h2 class="text-4xl font-bold">Trouvez le meilleur matériel informatique</h2>
             <p class="mt-2">Découvrez nos offres spéciales et promotions</p>
-            <a href="#" class="mt-4 inline-block bg-blue-600 px-6 py-2 rounded-md">Voir nos produits</a>
+            <a href="#" class="mt-4 inline-block bg-blue-600 px-6 py-2 rounded-md text-white">Voir nos produits</a>
         </div>
     </section>
     
@@ -86,12 +86,12 @@
         </div>
     </section>
     
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white p-6 mt-12 text-center">
+    <footer class="bg-white w-full p-6 mt-12 text-center">
         <p class="mb-2">Abonnez-vous à notre newsletter pour recevoir les dernières offres</p>
-        <input type="email" placeholder="Votre email" class="px-4 py-2 rounded-md text-black">
-        <button class="bg-blue-600 px-4 py-2 rounded-md ml-2">S'abonner</button>
+        <input type="email" placeholder="Votre email" class="px-4 py-2 rounded-md text-black border-solid border-2 border-black focus:outline-none">
+        <button class="bg-blue-600 px-4 text-white py-2 rounded-md ml-2">S'abonner</button>
         <p class="mt-4">&copy; 2025 LapCom. Tous droits réservés.</p>
     </footer>
+    
 </body>
 </html>

@@ -7,6 +7,7 @@ namespace App\Models;
 use App\UserRole;
 use App\UserStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -62,4 +63,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function carts(): HasMany
+{
+    return $this->hasMany(Cart::class, 'idUser');
+}
+public function products(): HasMany // Si un user peut créer des produits
+{
+    return $this->hasMany(Product::class, 'idUser');
+}
 }

@@ -58,11 +58,12 @@ class ProduitController extends Controller
     }
 
     // Afficher un produit spécifique
-    public function show(Product $produit)
+    public function show($id)
     {
-        return view('products.show', compact('produit'));  // Passer le produit à la vue
+        $product = Product::findOrFail($id);
+        return view('products.show', compact('product'));
     }
-
+    
     // Afficher le formulaire d'édition d'un produit
     public function edit($id)
     {
