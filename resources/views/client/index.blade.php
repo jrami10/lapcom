@@ -69,7 +69,10 @@
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
             @foreach ($categories as $category)
                 <div class="p-4 bg-white shadow-md rounded-lg text-center hover:scale-105 transition">
-                    <img src="{{ asset('../' . $category->image) }}" alt="{{ $category->name }}" class="mx-auto h-20 object-cover">
+                    <a href="{{ route('client.category', $category->id) }}" class="text-blue-600 hover:underline">
+                        <img src="{{ asset('../' . $category->image) }}" alt="{{ $category->name }}" class="mx-auto h-20 object-cover">  
+                    </a>
+                   
                     <p class="mt-2 font-semibold">{{ $category->name }}</p>
                 </div>
             @endforeach

@@ -34,6 +34,7 @@ class CartController extends Controller // Ensure it extends Controller
             // 2a. Update quantity if already present
             $newQuantity = $cartItem->quantity + $quantity;
             if ($product->stock < $newQuantity) {
+            
                  return back()->with('error', 'Quantité demandée dépasse le stock disponible.');
             }
             $cartItem->quantity = $newQuantity;
@@ -41,7 +42,8 @@ class CartController extends Controller // Ensure it extends Controller
             $cartItem->save();
         } else {
             // 2b. Create a new cart entry
-            Cart::create([
+            
+          Cart::create([
                 'idUser' => $user->id,
                 'idProduct' => $product->id,
                 'price' => $product->promo ?? $product->price, // Use promo price if exists, otherwise normal price
@@ -49,6 +51,7 @@ class CartController extends Controller // Ensure it extends Controller
                 'size' => $size,
                 'amount' => ($product->promo ?? $product->price) * $quantity,
             ]);
+          
         }
     
         return redirect()->route('cart.index')->with('success', 'Produit ajouté au panier !');

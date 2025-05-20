@@ -17,7 +17,12 @@
     <div x-data="{ open: false }" class="min-h-screen bg-gray-100 dark:bg-gray-900 flex">
         <!-- Main Content -->
         <div class="flex-1">
-            @include('layouts.sidebar')
+            @if (auth()->check() && auth()->user()->role === 'admin')
+                @include('layouts.sidebar')
+            @endif
+            
+
+            
             @include('layouts.navigation')
 
             <!-- Page Heading -->
@@ -30,9 +35,16 @@
             @endisset
 
             <!-- Page Content -->
-            <main class="ml-64">
-                @yield('content') <!-- C'est ici que le contenu spécifique à chaque page sera injecté -->
-            </main>
+            @if (auth()->check() && auth()->user()->role === 'admin')
+                <main class="ml-64">
+                    @yield('content') 
+                </main>
+            @else
+                <main 
+                    @yield('content') <!-- C'est ici que le contenu spécifique à chaque page sera injecté -->
+                </main>
+            @endif
+    
         </div>
     </div>
 

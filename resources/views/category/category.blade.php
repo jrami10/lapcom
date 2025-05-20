@@ -23,8 +23,11 @@
                     <!-- Actions -->
                     <div class="mt-4 flex gap-2">
                         <a href="{{ route('category.edit', $category->id) }}" class="px-3 py-1 bg-yellow-400 text-white rounded hover:bg-yellow-500 text-sm">Modifier</a>
-
-                       
+                        <form action="{{ route('category.destroy', $category->id) }}" method="POST" class="inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 text-sm">Supprimer</button>
+                        </form>
                     </div>
                 </div>
             @endforeach

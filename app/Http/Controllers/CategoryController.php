@@ -28,7 +28,7 @@ class CategoryController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'slug' => 'nullable|string|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:20480',
             'is_parent' => 'required',
             'id_parent' => 'nullable',
             'description' => 'nullable|string',
@@ -50,9 +50,9 @@ class CategoryController extends Controller
             $request->image->move(public_path('uploads/categories'), $imageName);
             $validated['image'] = 'uploads/categories/' . $imageName;
         }
-
+       
         Category::create($validated);
-
+       
         return redirect()->route('category.index')->with('success', 'Catégorie ajoutée avec succès !');
     }
 

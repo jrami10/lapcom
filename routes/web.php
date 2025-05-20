@@ -15,6 +15,7 @@ use App\Http\Controllers\OrderController;
 
 Route::middleware(['auth'])->prefix('client')->group(function () {
     Route::get('/', [ClientController::class, 'index'])->name('client.index');
+    Route::get('/sous-category/{id}', [ClientController::class, 'showCategory'])->name('client.category');
 });
 
 Route::middleware(['auth'])->prefix('products')->group(function () {
@@ -25,6 +26,7 @@ Route::middleware(['auth'])->prefix('products')->group(function () {
     Route::put('/{produit}', [ProduitController::class, 'update'])->name('products.update');
     Route::delete('/{produit}', [ProduitController::class, 'destroy'])->name('products.destroy');
     Route::get('/produit/{id}', [ProduitController::class, 'show'])->name('products.show');
+  
 
 });
 Route::middleware('auth')->prefix('cart')->controller(CartController::class)->group(function () {
@@ -52,6 +54,12 @@ Route::middleware(['auth'])->prefix('category')->group(function(){
     Route::post('/create', [CategoryController::class, 'store'])->name('category.store');
     Route::get('/edit/{id}', [CategoryController::class, 'edit'])->name('category.edit');
     Route::put('/{id}', [CategoryController::class, 'update'])->name('category.update'); 
+    Route::delete('/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
+    Route::get('/{id}', [CategoryController::class, 'show'])->name('category.show');
+    
+
+   
+   
 
 });
 

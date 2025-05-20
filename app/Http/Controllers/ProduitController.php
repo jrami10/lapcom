@@ -110,4 +110,5 @@ class ProduitController extends Controller
         $produit->delete();  // Supprimer le produit
         return redirect()->route('products.index')->with('success', 'Produit supprimé avec succès.');
     }
+    
 }

@@ -10,8 +10,16 @@ class ClientController extends Controller
 {
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::where('is_parent','1')->get();
         $products = Product::orderBy('id', 'desc')->take(6)->get(); 
         return view('client.index', compact('categories', 'products'));
     }
+    public function showCategory($id)
+
+    {
+        $category = Category::findOrFail($id);
+        $categories = Category::where('is_parent', '0')->where('id_parent', $category->id)->get();
+        return view('client.category', compact('categories'));
+    }
+
 }

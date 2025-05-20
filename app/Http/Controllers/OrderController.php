@@ -20,13 +20,13 @@ class OrderController extends Controller
     /**
      * Afficher une commande spécifique.
      */
-    public function show($id)
+    public function show($order)
     {
         // Trouver la commande par son ID
-        $order = Order::findOrFail($id);
+        $order = Order::findOrFail($order);
     
         // Retourner la vue avec les détails de la commande
-        return view('orders.show', compact('order'));
+        return view('client.orders.show', compact('order'));
     }
     
     /**
