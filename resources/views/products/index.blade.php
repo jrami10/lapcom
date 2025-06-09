@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mx-auto px-4 py-8">
+
+<div class="mx-auto px-4 py-8">
     <h1 class="text-2xl font-bold mb-6">Liste des Produits</h1>
 
     <div class="mt-4">
@@ -9,6 +10,7 @@
             + Ajouter un produit
         </a>
     </div>
+    
 
     <div class="mt-6">
         @if($produits->isEmpty())
@@ -53,6 +55,7 @@
             </div>
         @endif
     </div>
+
 </div>
 
 @endsection

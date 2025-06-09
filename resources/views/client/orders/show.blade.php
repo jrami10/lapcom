@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mx-auto py-8">
-    <h2 class="text-2xl font-bold mb-6">Détails de la Commande #{{ $order->id }}</h2>
+<div class="container mx-auto p-6 ml-64 bg-gray-100">
+    <h2 class="text-2xl font-bold mb-6 ">Détails de la Commande #{{ $order->id }}</h2>
 
     <div class="p-4 bg-white shadow rounded">
         <p><strong>Statut : </strong>{{ $order->statutOrder }}</p>

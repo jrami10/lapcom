@@ -36,7 +36,14 @@
                         </button>
                         <!-- Menu déroulant -->
                         <div x-show="open" x-transition class="absolute bg-white shadow-md mt-2 rounded-md z-10">
+                            @if(Auth::user()->role->value === 'admin')
+                            <a href="{{ route('dashboard') }}" class="block px-4 py-2 text-blue-600 hover:bg-gray-100">Mon espace</a>
+                            @elseif(Auth::user()->role->value === 'seller')
+                            <a href="{{ route('products.index') }}" class="block px-4 py-2 text-blue-600 hover:bg-gray-100">Mes produits</a>
+                            @else(Auth::user()->role->value === 'client')
                             <a href="{{ route('orders.index') }}" class="block px-4 py-2 text-blue-600 hover:bg-gray-100">Mes achats</a>
+                            @endif
+
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <button type="submit" class="block w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100">Déconnexion</button>

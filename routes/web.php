@@ -32,8 +32,8 @@ Route::middleware(['auth'])->prefix('products')->group(function () {
 Route::middleware('auth')->prefix('cart')->controller(CartController::class)->group(function () {
     Route::get('/', 'index')->name('cart.index'); // Afficher le panier
     Route::post('/add/{product}', 'add')->name('cart.add'); // Ajouter un produit au panier
-    Route::patch('/update/{cart}', 'update')->name('cart.update'); // Modifier la quantité
-    Route::delete('/remove/{cart}', 'remove')->name('cart.remove'); // Supprimer un article
+    Route::patch('/update/{cart}', 'update')->name('cart.update'); 
+    Route::delete('/remove/{cart}', 'remove')->name('cart.remove'); 
 });
 
 Route::middleware('auth')->prefix('orders')->group(function() {
@@ -75,10 +75,8 @@ Route::middleware(['auth'])->prefix('marques')->group(function() {
 
 
 // Page d'accueil
-Route::get('/', function () {
-    return view('welcome');
-});
-
+ Route::get('/', [ClientController::class, 'index'])->name('client.index');
+ 
 // Tableau de bord (dashboard)
 Route::get('/dashboard', function () {
     return view('dashboard');

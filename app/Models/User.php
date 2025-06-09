@@ -33,7 +33,7 @@ class User extends Authenticatable
         'statut_user',
     ];
     protected $casts = [
-        'statu_user' => UserStatus::class,
+        'statut_user' => UserStatus::class,
         'role' => UserRole::class,
     ];
 

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mx-auto px-4 py-8">
+<div class="container mx-auto p-12 bg-gray-50">
     <h1 class="text-2xl font-bold mb-6">Ajouter un produit</h1>
 
     @if ($errors->any())

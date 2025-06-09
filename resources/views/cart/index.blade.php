@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mx-auto py-8">
+<div class="container mx-auto p-6 bg-gray-100 ml-64">
     <h2 class="text-3xl font-bold mb-6">Votre panier</h2>
 
     @if(count($cartItems) > 0)
-        <div class="grid grid-cols-1 gap-4">
+        <div class="grid grid-cols-1 gap-4 bg-white p-4 shadow rounded-md">
             @foreach($cartItems as $item)
                 <div class="bg-white p-4 shadow rounded-md flex items-center justify-between">
                     <div class="flex items-center">

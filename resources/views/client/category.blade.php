@@ -55,23 +55,13 @@
 
     <!-- Catégories -->
     <main class="container mx-auto py-12">
-        <h2 class="text-3xl font-bold mb-8 text-center text-gray-800">Catégories Populaires</h2>
+        <h2 class="text-3xl font-bold mb-8 text-center text-gray-800">Sous catégories</h2>
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
             @foreach ($categories as $category)
                 <div class="p-4 bg-white shadow-md rounded-lg text-center hover:shadow-lg transition-transform transform hover:scale-105">
                     <img src="{{ asset('../' . $category->image) }}" alt="{{ $category->name }}" class="mx-auto h-24 object-contain mb-2">
                     <p class="text-lg font-semibold text-gray-700">{{ $category->name }}</p>
-                    <form method="POST" action="{{ route('cart.add', $category->id) }}">
-                        @csrf
-                        <input type="hidden" name="quantity" value="1">
-                    
-                        <button type="submit" class="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700">
-                            Ajouter au panier
-                        </button>
-
-                    </form>
-                    <a href="{{ route('category.show', $category->id) }}" class="text-blue-600 hover:underline mt-2 inline-block">Voir les produits</a>
-                </div>
+                    </div>
             @endforeach
         </div>
     </main>

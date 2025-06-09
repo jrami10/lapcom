@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mx-auto py-8">
-    <h2 class="text-2xl font-bold mb-6">Mes Commandes</h2>
+<div class="container bg-gray-100 mx-auto p-8 ml-64">
+    <h2 class="text-2xl font-bold mb-6 ">Mes Commandes</h2>
 
     @if($orders->count())
         <div class="space-y-4">

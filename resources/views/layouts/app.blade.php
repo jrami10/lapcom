@@ -14,35 +14,30 @@
 </head>
 <body class="font-sans antialiased">
 
-    <div x-data="{ open: false }" class="min-h-screen bg-gray-100 dark:bg-gray-900 flex">
+    <div x-data="{ open: false }" class=" bg-gray-100 min-h-screen flex">
         <!-- Main Content -->
         <div class="flex-1">
-            @if (auth()->check() && auth()->user()->role === 'admin')
+            @if (auth()->user()->role->value === 'admin')
                 @include('layouts.sidebar')
+            @elseif(auth()->user()->role->value === 'seller')
+                @include('layouts.sidebar-seller')
+            @elseif(auth()->user()->role->value === 'client')
+                @include('layouts.sidebar-client')
+                
             @endif
-            
+             
+           
 
             
             @include('layouts.navigation')
 
-            <!-- Page Heading -->
-            @isset($header)
-                <header class="bg-white dark:bg-gray-800 shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endisset
 
             <!-- Page Content -->
-            @if (auth()->check() && auth()->user()->role === 'admin')
-                <main class="ml-64">
+            @if (auth()->user()->role->value === 'admin' || auth()->user()->role->value === 'seller' || auth()->user()->role->value === 'client')
+                <main class="ml-64 bg-gray-50">
                     @yield('content') 
                 </main>
-            @else
-                <main 
-                    @yield('content') <!-- C'est ici que le contenu spécifique à chaque page sera injecté -->
-                </main>
+           
             @endif
     
         </div>
